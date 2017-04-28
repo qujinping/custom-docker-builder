@@ -11,7 +11,7 @@
 # If "/root/.dockercfg" is bind mounted in, it will use that as authorization
 # to a Docker registry.
 #
-FROM core/centos:7.3
+FROM core/centos:7
 
 MAINTAINER qujinping
 
