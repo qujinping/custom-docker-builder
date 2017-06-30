@@ -59,6 +59,9 @@ if [[ -d /var/run/secrets/openshift.io/push ]] && [[ ! -e /root/.dockercfg ]]; t
   cp /var/run/secrets/openshift.io/push/.dockercfg /root/.dockercfg
 fi
 
+echo "Start to sleep 180 seconds for debugging ..."
+sleep 180
+
 if [ -n "${OUTPUT_IMAGE}" ] || [ -s "/root/.dockercfg" ]; then
   docker tag "${OUTPUT_IMAGE}" "${TAG}" 
   docker push "${TAG}"
