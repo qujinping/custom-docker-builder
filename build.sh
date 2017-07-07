@@ -49,6 +49,10 @@ fi
 
 if [[ -d /var/run/secrets/openshift.io/pull ]] && [[ ! -e /root/.dockercfg ]]; then
   cp /var/run/secrets/openshift.io/pull/.dockercfg /root/.dockercfg
+  mkdir /root/.docker
+  echo "{\"auths\":" > /root/.docker/config.json
+  cat /root/.dockercfg >> /root/.docker/config.json
+  echo "}" >> /root/.docker/config.json
 fi
 
 pushd "${BUILD_DIR}"
@@ -57,10 +61,11 @@ popd
 
 if [[ -d /var/run/secrets/openshift.io/push ]] && [[ ! -e /root/.dockercfg ]]; then
   cp /var/run/secrets/openshift.io/push/.dockercfg /root/.dockercfg
+  mkdir /root/.docker
+  echo "{\"auths\":" > /root/.docker/config.json
+  cat /root/.dockercfg >> /root/.docker/config.json
+  echo "}" >> /root/.docker/config.json
 fi
-
-echo "Start to sleep 180 seconds for debugging ..."
-sleep 180
 
 if [ -n "${OUTPUT_IMAGE}" ] || [ -s "/root/.dockercfg" ]; then
   docker tag "${OUTPUT_IMAGE}" "${TAG}" 
